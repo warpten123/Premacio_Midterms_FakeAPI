@@ -1,12 +1,29 @@
+import 'package:json_annotation/json_annotation.dart';
+
+// part 'product.g.dart';
+
+@JsonSerializable()
 class Product {
-  dynamic productId;
-  int price;
+  int id;
   String title;
+  double price;
+  String category;
   String description;
+  String image;
 
   Product(
-      {this.productId,
-      required this.price,
+      {required this.id,
       required this.title,
-      required this.description});
+      required this.price,
+      required this.category,
+      required this.description,
+      required this.image});
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json["id"],
+        title: json["title"],
+        price: json["price"].toDouble(),
+        description: json["description"],
+        category: json["category"],
+        image: json["image"],
+      );
 }
