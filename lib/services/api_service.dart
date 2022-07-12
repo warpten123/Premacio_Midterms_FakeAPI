@@ -78,4 +78,27 @@ class ApiService {
     }).catchError((_) =>
         APIResponse<Product>(error: true, errorMessage: "An error occured"));
   }
+
+  Future<APIResponse<List<Products>>> getProductsByCategory(
+      String categoryName) {
+    return http
+        .get(Uri.parse(
+            'https://fakestoreapi.com/products/category/$categoryName'))
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        final products = <Products>[];
+        for (var item in jsonData) {
+          products.add(Products.fromJson(item));
+        }
+        print(products);
+        return APIResponse<List<Products>>(
+          data: products,
+        );
+      }
+      return APIResponse<List<Products>>(
+          error: true, errorMessage: "An error occured");
+    }).catchError((_) => APIResponse<List<Products>>(
+            error: true, errorMessage: "An error occured"));
+  }
 }
