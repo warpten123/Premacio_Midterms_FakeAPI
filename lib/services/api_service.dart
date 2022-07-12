@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:fake_store/models/single_product.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/api_response.dart';
 import '../models/login_model.dart';
-import '../models/product.dart';
+import '../models/products.dart';
 
 class ApiService {
   static const String baseUrl = 'https://fakestoreapi.com/auth/login';
@@ -20,27 +21,26 @@ class ApiService {
     }
   }
 
-  Future<APIResponse<List<Product>>> getAllProducts() {
+  Future<APIResponse<List<Products>>> getAllProducts() {
     return http
         .get(Uri.parse('https://fakestoreapi.com/products'))
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = jsonDecode(data.body);
-        final products = <Product>[];
+        final products = <Products>[];
         for (var item in jsonData) {
-          products.add(Product.fromJson(item));
+          products.add(Products.fromJson(item));
         }
         print(products);
-        return APIResponse<List<Product>>(
+        return APIResponse<List<Products>>(
           data: products,
         );
       }
-      return APIResponse<List<Product>>(
+      return APIResponse<List<Products>>(
           error: true, errorMessage: "An error occured");
-    }).catchError((_) => APIResponse<List<Product>>(
+    }).catchError((_) => APIResponse<List<Products>>(
             error: true, errorMessage: "An error occured"));
   }
-
 
   Future<APIResponse<List<String>>> getAllCategories() {
     return http
@@ -63,4 +63,19 @@ class ApiService {
             error: true, errorMessage: "An error occured"));
   }
 
+  Future<APIResponse<Product>> getProduct(int id) {
+    return http.get(Uri.parse('https://fakestoreapi.com/products/$id')).then(
+        (data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+
+        return APIResponse<Product>(
+          data: Product.fromJson(jsonData),
+        );
+      }
+      return APIResponse<Product>(
+          error: true, errorMessage: "An error occured");
+    }).catchError((_) =>
+        APIResponse<Product>(error: true, errorMessage: "An error occured"));
+  }
 }

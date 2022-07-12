@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import '../models/api_response.dart';
-import '../models/product.dart';
+import '../models/products.dart';
 import '../services/api_service.dart';
 import 'all_category.dart';
 import 'cart_screen.dart';
@@ -19,14 +19,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = false;
   ApiService get apiservice => GetIt.instance<ApiService>();
-  late APIResponse<List<Product>> _apiResponse;
+  late APIResponse<List<Products>> _apiResponse;
   @override
   void initState() {
     getAllProducts();
     super.initState();
   }
 
-  Future<APIResponse<List<Product>>> getAllProducts() async {
+  Future<APIResponse<List<Products>>> getAllProducts() async {
     return _apiResponse = await apiservice.getAllProducts();
   }
 
@@ -45,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               MaterialPageRoute(builder: (_) => const AllCategoryScreen()),
               // MaterialPageRoute(builder: (_) => const test()),
-
             ),
           ),
           IconButton(
@@ -63,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: FutureBuilder(
             future: getAllProducts(),
-            builder: (_, AsyncSnapshot<APIResponse<List<Product>>> snapshot) {
+            builder: (_, AsyncSnapshot<APIResponse<List<Products>>> snapshot) {
               if (!snapshot.hasData) {
                 return const CircularProgressIndicator();
               }
@@ -85,8 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          // builder: (_) => ProductDetailScreen(),
-                          builder: (_) => test(),
+                          builder: (_) => ProductDetailScreen(
+                            id: product.id,
+                          ),
+                          // builder: (_) => test(),
                         ),
                       );
                     },
