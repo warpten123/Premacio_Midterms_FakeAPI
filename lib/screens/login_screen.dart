@@ -58,7 +58,6 @@ class LoginScreen extends StatelessWidget {
                   final getToken = await apiservice.login(requestModel);
 
                   if (getToken.token.isNotEmpty) {
-                    print("fuck");
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Successfully logged in'),
@@ -70,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                       () => Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const test(),
+                          builder: (_) => const HomeScreen(),
                         ),
                       ),
                     );

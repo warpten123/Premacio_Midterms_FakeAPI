@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/api_response.dart';
 import '../models/login_model.dart';
+import '../models/product.dart';
 
 class ApiService {
   static const String baseUrl = 'https://fakestoreapi.com/auth/login';
@@ -17,5 +18,26 @@ class ApiService {
     } else {
       throw Exception("Invalid login");
     }
+  }
+
+  Future<APIResponse<List<Product>>> getAllProducts() {
+    return http
+        .get(Uri.parse('https://fakestoreapi.com/products'))
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        final products = <Product>[];
+        for (var item in jsonData) {
+          products.add(Product.fromJson(item));
+        }
+        print(products);
+        return APIResponse<List<Product>>(
+          data: products,
+        );
+      }
+      return APIResponse<List<Product>>(
+          error: true, errorMessage: "An error occured");
+    }).catchError((_) => APIResponse<List<Product>>(
+            error: true, errorMessage: "An error occured"));
   }
 }
