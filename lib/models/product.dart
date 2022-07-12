@@ -1,8 +1,8 @@
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-// part 'product.g.dart';
+// // part 'product.g.dart';
 
-@JsonSerializable()
+// @JsonSerializable()
 class Product {
   int id;
   String title;
