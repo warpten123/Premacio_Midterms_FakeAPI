@@ -46,7 +46,7 @@
 //                   ),
 //                   const SizedBox(height: 10),
 //                   Text(
-//                     '\$${product.price}',
+//                     '\$$price',
 //                     style: const TextStyle(
 //                       fontSize: 25,
 //                       fontWeight: FontWeight.bold,

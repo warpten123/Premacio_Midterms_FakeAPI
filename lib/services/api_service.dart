@@ -40,4 +40,27 @@ class ApiService {
     }).catchError((_) => APIResponse<List<Product>>(
             error: true, errorMessage: "An error occured"));
   }
+
+
+  Future<APIResponse<List<String>>> getAllCategories() {
+    return http
+        .get(Uri.parse('https://fakestoreapi.com/products/categories'))
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = jsonDecode(data.body);
+        final categories = <String>[];
+        for (var item in jsonData) {
+          categories.add(item);
+        }
+        print("from cat $categories");
+        return APIResponse<List<String>>(
+          data: categories,
+        );
+      }
+      return APIResponse<List<String>>(
+          error: true, errorMessage: "An error occured");
+    }).catchError((_) => APIResponse<List<String>>(
+            error: true, errorMessage: "An error occured"));
+  }
+
 }

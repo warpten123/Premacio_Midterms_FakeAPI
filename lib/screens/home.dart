@@ -42,8 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.view_list),
             onPressed: () => Navigator.push(
               context,
-              // MaterialPageRoute(builder: (_) => const AllCategoryScreen()),
-              MaterialPageRoute(builder: (_) => const test()),
+
+              MaterialPageRoute(builder: (_) => const AllCategoryScreen()),
+              // MaterialPageRoute(builder: (_) => const test()),
+
             ),
           ),
           IconButton(
