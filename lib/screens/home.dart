@@ -42,9 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.view_list),
             onPressed: () => Navigator.push(
               context,
-
               MaterialPageRoute(builder: (_) => const AllCategoryScreen()),
-              // MaterialPageRoute(builder: (_) => const test()),
             ),
           ),
           IconButton(
@@ -52,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                // builder: (_) => const CartScreen(),
-                builder: (_) => const test(),
+                builder: (_) => const CartScreen(),
+                // builder: (_) => const test(),
               ),
             ),
           ),
@@ -87,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (_) => ProductDetailScreen(
                             id: product.id,
                           ),
-                          // builder: (_) => test(),
                         ),
                       );
                     },

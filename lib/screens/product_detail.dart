@@ -101,7 +101,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: Colors.green,
       //   onPressed: () async {
-      //     await updateCart(1, id);
+      //     await addToCart(1, id);
       //     ScaffoldMessenger.of(context).showSnackBar(
       //       const SnackBar(
       //         content: Text('Product added to cart'),
