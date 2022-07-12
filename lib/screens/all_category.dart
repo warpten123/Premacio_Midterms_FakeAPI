@@ -46,14 +46,14 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: InkWell(
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (_) => ProductsByCategoryScreen(
-                    //       categoryName: snapshot.data,
-                    //     ),
-                    //   ),
-                    // ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProductsByCategoryScreen(
+                          categoryName: snapshot.data!.data![index],
+                        ),
+                      ),
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(40),
                       child: Center(
