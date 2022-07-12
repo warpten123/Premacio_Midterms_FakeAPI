@@ -4,15 +4,17 @@ import 'package:fake_store/models/single_product.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/api_response.dart';
+import '../models/cart.dart';
 import '../models/login_model.dart';
 import '../models/products.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://fakestoreapi.com/auth/login';
+  static const String baseUrl = 'https://fakestoreapi.com';
 
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
-    final response =
-        await http.post(Uri.parse(baseUrl), body: requestModel.toJson());
+    final response = await http.post(
+        Uri.parse('https://fakestoreapi.com/auth/login'),
+        body: requestModel.toJson());
     if (response.statusCode == 200) {
       print(response.statusCode);
       return LoginResponseModel.fromJson(json.decode(response.body));
@@ -101,4 +103,31 @@ class ApiService {
     }).catchError((_) => APIResponse<List<Products>>(
             error: true, errorMessage: "An error occured"));
   }
-}
+
+  Future<Cart?> getCart(String id) {
+    return http.get(Uri.parse('$baseUrl/carts/$id')).then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        return Cart.fromJson(jsonData);
+      }
+      return null;
+    }).catchError((err) => print(err));
+  }
+
+  Future<APIResponse<bool>> deleteCart(String id) {
+    return http
+        .delete(
+      Uri.parse('https://fakestoreapi.com/carts/$id'),
+    )
+        .then((data) {
+      if (data.statusCode == 204) {
+        print(data);
+        return APIResponse<bool>(
+          data: true,
+        );
+      }
+      return APIResponse<bool>(error: true, errorMessage: "An error occured");
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: "An error occured"));
+  }
+}///end service
