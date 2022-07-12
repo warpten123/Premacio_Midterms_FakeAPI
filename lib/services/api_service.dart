@@ -41,6 +41,7 @@ class ApiService {
             error: true, errorMessage: "An error occured"));
   }
 
+
   Future<APIResponse<List<String>>> getAllCategories() {
     return http
         .get(Uri.parse('https://fakestoreapi.com/products/categories'))
@@ -61,4 +62,5 @@ class ApiService {
     }).catchError((_) => APIResponse<List<String>>(
             error: true, errorMessage: "An error occured"));
   }
+
 }
