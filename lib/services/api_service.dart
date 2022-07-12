@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/api_response.dart';
 import '../models/cart.dart';
+import '../models/cart_update.dart';
 import '../models/login_model.dart';
 import '../models/products.dart';
 
@@ -129,5 +130,26 @@ class ApiService {
       return APIResponse<bool>(error: true, errorMessage: "An error occured");
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: "An error occured"));
+  }
+
+  Future<APIResponse<bool>> updateCart(int cartId, int productId) {
+    final cartUpdate = CartUpdate(
+        id: productId,
+        userId: cartId,
+        date: DateTime.now(),
+        products: [
+          {'productId': productId, 'quantity': 3}
+        ]);
+    return http
+        .put(Uri.parse('https://fakestoreapi.com/carts/$cartId'),
+            body: json.encode(cartUpdate.toJson()))
+        .then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(
+          data: true,
+        );
+      }
+      return APIResponse<bool>(error: true, errorMessage: "An error occured");
+    }).catchError((err) => print(err));
   }
 }///end service

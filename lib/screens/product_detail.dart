@@ -98,18 +98,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           },
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.green,
-      //   onPressed: () async {
-      //     await addToCart(1, id);
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       const SnackBar(
-      //         content: Text('Product added to cart'),
-      //       ),
-      //     );
-      //   },
-      //   child: const Icon(Icons.add_shopping_cart),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        onPressed: () async {
+          await apiservice.updateCart(1, widget.id);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Product added to cart'),
+            ),
+          );
+        },
+        child: const Icon(Icons.add_shopping_cart),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
